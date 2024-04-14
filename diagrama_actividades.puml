@@ -1,0 +1,37 @@
+@startuml
+|Usuario|
+if() then (Usuario registrado)
+    label sp_lab0
+    label sp_lab1
+    label sp_lab2
+    label sp_lab3
+    label sp_lab4
+    label sp_lab5
+    label sp_lab6
+    label sp_lab7
+    label sp_lab8
+    repeat 
+    :ingresar credenciales 
+    para iniciar seccion; 
+    |Sistema|
+    |Base de datos|
+    :validar usuario y contraseña;
+    repeat while ( ) is (datos incorrectos) not (datos correctos)
+
+
+else (Usuario no registrado)  
+    |Usuario|
+        repeat 
+        :ingresar datos 
+        para registrarse;
+        |Sistema|
+        :validar correo 
+        electrónico;
+        repeat while( ) is (Correo no valido) not(Correo valido)
+    |Base de datos|
+    :registrar nuevo Usuario;
+    :Usuarios]
+endif
+|Sistema|
+:comunica ingreso;
+@enduml
