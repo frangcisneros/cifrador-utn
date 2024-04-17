@@ -1,5 +1,7 @@
 @startuml
+
 |User|
+start
 if() then (Registered user)
     label sp_lab0
     label sp_lab1
@@ -32,7 +34,27 @@ else (Unregistered user)
     |Database|
     :Register new user;
     :Users]
+    
 endif
 |System|
 :Comunicate ingress;
+
+|User|
+:Text input to encrypt (optional: key);
+|System|
+:display ciphertext;
+|User|
+:Choose whether to save the log;
+if() then (If you want to save it)
+    |System|
+    :Send encrypted text;
+    |Database|
+    :Add encrypted text;
+    -> update;
+    :History] 
+else(You don't want to save it)
+endif
+|User| 
+stop
+
 @enduml
