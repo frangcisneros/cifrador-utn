@@ -1,31 +1,67 @@
-@startuml Diagram de Clases
-class Model {
- clase de SQLAlchemy
+@startuml ClassDiagram
+
+class User{
+    -username: str
+    -email: str
+    -password: str
+    -user: User
+    -settings: UserSettings
+    +created_account()
+    +delete_account()
+    +login(email: str, password: str)
+    +signoff()
+    +insert_text(text: Text)
+    +open_saved_text()
+    +save_text(text: Text)
+    +edit_text(text_id: int, new_text: str)
+    +delete_text(text_id: int)
+    +search_text(keyword: str)
+    +view_profile()
+}
+class UserSettings{
+    -language: str
+    +update_language(language: str)
+    +edit_username(new_username:str)
+    +edit_password(new_password: str)
+}
+class Role{
+    -name:str
+    -description:str
+    +change_role()
+}
+enum Roles{
+    user
+    admin
+}
+class Text{
+    -id:int
+    -content: str
+    -length: int
+    -language: str
+    -history: TextHistory
+    +check_length(): bool
+    +encrypt_text()
+    +change_content()
+}
+class TextHistory{
+    -id
+    -content : str
+    -timestamp
+    +view_history()
+    +view_versions()
+    +change_version()
+}
+class EncryptedText{
+    -data: str
+    -length: int
+    -text_password: str
+    +decipher_text(): str
 }
 
-class User {
-    - username: str
-    - email: str
-    - password: str
-}
-
-class UserData{
-    - name: str
-    - firstname: str
-    - lastname: str
-    - phone: str
-    - address: str
-    - city: str
-    - country: str
-}
-
-class Role {
-    - name: str
-    - description: str
-}
-Model <|-- User
-Model <|-- Role
-Model <|-- UserData
-User "1" *--- "1" UserData : contiene
-User "m" o--o "n" Role
+User -- Role
+Role - Roles
+Text -- EncryptedText
+User -- UserSettings
+User - Text
+Text -- TextHistory
 @enduml
